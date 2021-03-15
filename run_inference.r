@@ -44,7 +44,8 @@ if (state_abbr == "TN"){
 
 print(state_abbr)
 print(end_date)
-path <- '/home/cades/volume/covid/'
+# path <- '/home/cades/volume/covid/'
+path <- paste(getwd(),'/',sep='')
 
 in_file = paste(path, end_date, '/', state, '-covid.txt', sep="")
 print(paste("Reading data from ", in_file, sep=""))
@@ -81,7 +82,7 @@ posterior <- sample(bi_model, end_time=end_time, input=input_lst,
 
 print("Saving Data files.")
 save(sample_obs, posterior,  file=paste(path, state_abbr, '_', epi_model, '_', end_date, '-', iter, '.RData', sep=""))
-save_file(posterior, name=paste(path, state_abbr, '_', epi_model, '_', end_date, '.RDS', sep=""))
+save_file(posterior, file_path=paste(path, state_abbr, '_', epi_model, '_', end_date, '.RDS', sep=""))
 
 #####  make predictions  ######
 
@@ -95,4 +96,4 @@ pred_bi <- predict(posterior, start_time=pred_start, end_time=pred_end,
 
 print("Saving Data files.")
 save(pred_bi, file=paste(path, state_abbr, '_', epi_model, '_preds-onemonth_', epi_model, '_', '.RData', sep=""))
-save_file(pred_bi, name=paste(path, state_abbr, '_', epi_model, '_preds-onemonth_', epi_model, '_', end_date, '.RDS', sep=""))
+save_file(pred_bi, file_path=paste(path, state_abbr, '_', epi_model, '_preds-onemonth_', epi_model, '_', end_date, '.RDS', sep=""))
